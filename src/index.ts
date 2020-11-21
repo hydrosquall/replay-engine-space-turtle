@@ -2,6 +2,9 @@ import { makeSprite, t, GameProps } from "@replay/core";
 import { WebInputs, RenderCanvasOptions } from "@replay/web";
 import { iOSInputs } from "@replay/swift";
 
+import { Turtle } from './turtle';
+import { posix } from "path";
+
 // defined in webpack
 declare const ASSET_NAMES: {};
 
@@ -54,14 +57,29 @@ export const Game = makeSprite<GameProps, GameState, WebInputs | iOSInputs>({
   },
 
   loop({ state, device }) {
-    const { pointer } = device.inputs;
+    const { pointer, keysDown } = device.inputs;
     const { posX, posY } = state;
     let { targetX, targetY } = state;
 
+    // Include clicking option for those who aren't as quick on the keyboard.
     if (pointer.justPressed) {
-      device.audio("boop.wav").play();
       targetX = pointer.x;
       targetY = pointer.y;
+    }
+
+    // Turtle Movement
+    if (keysDown['ArrowLeft']) {
+      targetX -= 10;
+    }
+    if (keysDown['ArrowRight']) {
+      targetX += 10;
+    }
+
+    if (keysDown['ArrowUp']) {
+      targetY += 10;
+    }
+    if (keysDown['ArrowDown']) {
+      targetY -= 10;
     }
 
     return {
@@ -76,17 +94,22 @@ export const Game = makeSprite<GameProps, GameState, WebInputs | iOSInputs>({
     return [
       t.text({
         color: "red",
-        text: "Hello Replay! To get started, edit src/index.ts",
+        text: "TurtleShield",
         y: 50,
       }),
-      t.image({
-        testId: "icon",
+      // t.image({
+      //   testId: "icon",
+      //   x: state.posX,
+      //   y: state.posY,
+      //   fileName: "icon.png",
+      //   width: 50,
+      //   height: 50,
+      // }),
+      Turtle({
+        id: 'turtle',
         x: state.posX,
         y: state.posY,
-        fileName: "icon.png",
-        width: 50,
-        height: 50,
-      }),
+      })
     ];
   },
 });
