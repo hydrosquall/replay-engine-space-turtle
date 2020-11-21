@@ -19,6 +19,8 @@ export const options: RenderCanvasOptions = {
   dimensions: "scale-up",
 };
 
+const TURTLE_SPEED = 5;
+
 export const gameProps: GameProps = {
   id: "Game",
   size: {
@@ -69,17 +71,17 @@ export const Game = makeSprite<GameProps, GameState, WebInputs | iOSInputs>({
 
     // Turtle Movement
     if (keysDown['ArrowLeft']) {
-      targetX -= 10;
+      targetX -= TURTLE_SPEED;
     }
     if (keysDown['ArrowRight']) {
-      targetX += 10;
+      targetX += TURTLE_SPEED;
     }
 
     if (keysDown['ArrowUp']) {
-      targetY += 10;
+      targetY += TURTLE_SPEED;
     }
     if (keysDown['ArrowDown']) {
-      targetY -= 10;
+      targetY -= TURTLE_SPEED;
     }
 
     return {
@@ -93,7 +95,7 @@ export const Game = makeSprite<GameProps, GameState, WebInputs | iOSInputs>({
   render({ state }) {
     return [
       t.text({
-        color: "red",
+        color: "turquoise",
         text: "TurtleShield",
         y: 50,
       }),
