@@ -28,7 +28,9 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 
 // const NUM_PARTICLES = 2;
-const NUM_PARTICLES = parseInt(urlParams.get('nSocks') ?? '', 10 ) ?? 2;
+const maybeParticles = parseInt(urlParams.get('nSocks') ?? '', 10 );
+
+const NUM_PARTICLES = isNaN(maybeParticles) ? 15 : maybeParticles;
 const MIN_PARTICLE_SIZE = 5;
 const MAX_PARTICLE_SIZE = 8;
 
