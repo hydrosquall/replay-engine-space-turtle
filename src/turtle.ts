@@ -56,7 +56,7 @@ export const Turtle = makeSprite<Props, State, WebInputs | iOSInputs>({
       }),
       t.circle({
         radius: turtleWidth - 5,
-        color: "white",
+        color: "#ffe",
       }),
 
       t.spriteSheet({

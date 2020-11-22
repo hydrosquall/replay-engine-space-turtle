@@ -2,6 +2,11 @@
 
 Welcome to your game!
 
+
+## Url params
+
+- nSocks: Controls how many socks are visible
+
 ## Structure
 
 - `assets`: Assets like audio and images go here. Nested folders are not currently supported.
